@@ -1,0 +1,52 @@
+@use '../../../shared/styles/variables' as vars;
+@use '../../../shared/styles/mixins' as mixins;
+
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    
+    img {
+      height: 40px;
+      width: auto;
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      color: #0F265C;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 0;
+    
+    .logo {
+      img {
+        height: 35px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+    }
+  }
+} 

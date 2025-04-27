@@ -1,0 +1,16 @@
+<div class="date-input-container">
+  <label [attr.for]="id">{{ label }}</label>
+  <input 
+    type="date"
+    [id]="id"
+    class="app-input"
+    [formControl]="dateControl"
+    [attr.min]="min"
+    [readonly]="readonly"
+    (blur)="onBlur()"
+    [ngClass]="{'error': showError}"
+  />
+  <div class="error-message" *ngIf="showError">
+    {{ errorMessage }}
+  </div>
+</div> 

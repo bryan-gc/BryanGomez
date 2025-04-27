@@ -1,0 +1,42 @@
+@use '../../../shared/styles/variables' as vars;
+@use '../../../shared/styles/mixins' as mixins;
+
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.app-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid vars.$border-color;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: vars.$primary-color;
+  }
+  
+  &.error {
+    border-color: vars.$error-color;
+  }
+  
+  &:disabled, &[readonly] {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+  }
+}
+
+.error-message {
+  color: vars.$error-color;
+  font-size: 12px;
+  margin-top: 5px;
+} 

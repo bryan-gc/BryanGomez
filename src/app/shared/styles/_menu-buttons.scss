@@ -1,0 +1,54 @@
+@use './variables' as vars;
+@use './mixins' as mixins;
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: vars.$text-color-secondary;
+  cursor: pointer;
+  padding: 5px;
+  vertical-align: middle;
+  @include mixins.transition(color);
+  
+  &:hover {
+    color: vars.$text-color;
+  }
+  
+  &:focus {
+    outline: none;
+    color: vars.$text-color;
+  }
+  
+  &:disabled {
+    opacity: vars.$disabled-opacity;
+    cursor: not-allowed;
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 120px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: vars.$border-radius;
+    z-index: 1000;
+    overflow: hidden;
+    
+    .dropdown-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      @include mixins.transition(background-color);
+      
+      &:hover {
+        background-color: vars.$secondary-color;
+      }
+    }
+  }
+} 

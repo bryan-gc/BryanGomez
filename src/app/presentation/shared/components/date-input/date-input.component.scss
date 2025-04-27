@@ -1,0 +1,39 @@
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.app-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  &.error {
+    border-color: #dc3545;
+  }
+  
+  &:disabled, &[readonly] {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+} 

@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="header-container">
+    <div class="search-container">
+      <input 
+        type="text" 
+        placeholder="Search..." 
+        [(ngModel)]="searchText" 
+        class="search-input"
+      >
+    </div>
+    <button appButton="add" (click)="goToAddProduct()">Agregar</button>
+  </div>
+
+  <div class="table-container">
+    <table class="products-table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>
+            Descripción
+            <span class="info-icon">i</span>
+          </th>
+          <th>
+            Fecha de liberación
+            <span class="info-icon">i</span>
+          </th>
+          <th>
+            Fecha de reestructuración
+            <span class="info-icon">i</span>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading$ | async" class="skeleton-row">
+          <td class="logo-cell">
+            <div class="skeleton-circle"></div>
+          </td>
+          <td><div class="skeleton-text"></div></td>
+          <td><div class="skeleton-text"></div></td>
+          <td><div class="skeleton-text"></div></td>
+          <td><div class="skeleton-text"></div></td>
+          <td class="actions-cell">
+            <div class="skeleton-circle skeleton-action"></div>
+          </td>
+        </tr>
+        
+        <ng-container *ngIf="!(isLoading$ | async) && (filteredProducts$ | async) as filteredProducts">
+          <tr *ngFor="let product of filteredProducts | slice:0:resultsPerPage">
+            <td class="logo-cell">
+              <div class="logo-container">
+                {{ product.logo }}
+              </div>
+            </td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release | date:'dd/MM/yyyy' }}</td>
+            <td>{{ product.date_revision | date:'dd/MM/yyyy' }}</td>
+            <td class="actions-cell">
+              <div class="dropdown">
+                <button appMenuButton (clickEvent)="toggleDropdown(product.id, $event)"></button>
+                <div class="dropdown-menu" *ngIf="activeDropdown === product.id">
+                  <div class="dropdown-item" (click)="editProduct(product, $event)">Editar</div>
+                  <div class="dropdown-item" (click)="confirmDelete(product, $event)">Eliminar</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+
+
+  </div>
+
+  <div class="table-footer">
+    <div class="results-info">
+      <span *ngIf="isLoading$ | async" class="skeleton-text" style="width: 100px; display: inline-block;"></span>
+      <span *ngIf="!(isLoading$ | async)">{{ (totalResults$ | async) || 0 }} Resultados</span>
+    </div>
+    <div class="pagination-controls">
+      <select [(ngModel)]="resultsPerPage" class="results-select" [attr.disabled]="(isLoading$ | async) ? '' : null">
+        <option *ngFor="let option of resultsOptions" [value]="option">{{ option }}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showDeleteModal">
+  <div class="modal-container">
+    <div class="modal-content">
+      <h3>¿Estas seguro de eliminar el producto {{ productToDelete?.name }}?</h3>
+      
+      <div class="modal-actions">
+        <button appButton="secondary" class="modal-btn modal-cancel-btn" (click)="cancelDelete()">Cancelar</button>
+        <button appButton="primary" class="modal-btn modal-confirm-btn" (click)="deleteProduct()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div> 

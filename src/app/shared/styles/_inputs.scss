@@ -1,0 +1,62 @@
+@use './variables' as vars;
+@use './mixins' as mixins;
+
+.app-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid vars.$border-color;
+  border-radius: vars.$border-radius;
+  font-size: vars.$font-size-base;
+  font-family: 'Roboto', sans-serif;
+  @include mixins.transition(border-color);
+  
+  &:focus {
+    border-color: vars.$focus-color;
+    outline: none;
+    @include mixins.focus-state;
+  }
+  
+  &.error {
+    border: 2px solid vars.$error-color;
+    border-radius: vars.$border-radius;
+  }
+  
+  &:disabled, &.readonly {
+    background-color: vars.$disabled-background;
+    cursor: not-allowed;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: vars.$font-weight-medium;
+  color: vars.$text-color;
+}
+
+.error-message {
+  color: vars.$error-color;
+  font-size: vars.$font-size-small;
+  margin-top: 5px;
+  font-weight: vars.$font-weight-normal;
+  
+  &.hidden {
+    display: none;
+  }
+}
+
+.form-group, 
+.input-group,
+.input-container {
+  margin-bottom: 15px;
+  position: relative;
+  
+  &.inline {
+    @include mixins.flex(row, space-between, flex-start);
+    gap: vars.$spacing-medium;
+    
+    > * {
+      flex: 1;
+    }
+  }
+} 

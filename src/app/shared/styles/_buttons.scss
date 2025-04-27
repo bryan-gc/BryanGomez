@@ -1,0 +1,55 @@
+@use './variables' as vars;
+@use './mixins' as mixins;
+
+%button-base {
+  padding: vars.$button-padding;
+  font-size: vars.$font-size-base;
+  font-weight: vars.$font-weight-medium;
+  border: none;
+  border-radius: vars.$border-radius;
+  cursor: pointer;
+  @include mixins.transition(background-color);
+  outline: none;
+  font-family: 'Roboto', sans-serif;
+  
+  &:disabled {
+    opacity: vars.$disabled-opacity;
+    cursor: not-allowed;
+  }
+  
+  &:focus {
+    outline: none;
+    @include mixins.focus-state;
+  }
+}
+
+.btn-primary {
+  @extend %button-base;
+  background-color: vars.$primary-color;
+  color: vars.$text-color;
+  
+  @include mixins.button-states(vars.$primary-color-hover, vars.$primary-color-active);
+}
+
+.btn-secondary {
+  @extend %button-base;
+  background-color: vars.$secondary-color;
+  color: vars.$text-color;
+  
+  @include mixins.button-states(vars.$secondary-color-hover, vars.$secondary-color-active);
+}
+
+.add-button {
+  @extend %button-base;
+  background-color: vars.$primary-color;
+  color: vars.$text-color;
+  @include mixins.flex(row, center, center);
+  
+  @include mixins.button-states(vars.$primary-color-hover, vars.$primary-color-active);
+  
+  &:before {
+    content: "+";
+    margin-right: 5px;
+    font-weight: vars.$font-weight-bold;
+  }
+} 
